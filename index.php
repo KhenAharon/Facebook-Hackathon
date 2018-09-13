@@ -20,7 +20,13 @@
     </div>
   </div>
 </nav>
+<script>
+$.get("http://python-service.us-east-2.elasticbeanstalk.com/", function(data, status){
+        alert("Data: " + data + "\nStatus: " + status);
+    });
+</script>
 </body>
+
 <?
 echo "yo";
 ?>
