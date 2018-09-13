@@ -39,7 +39,8 @@
       $.ajax({
         url: "http://python-service.us-east-2.elasticbeanstalk.com/",
         //https://api.dailymotion.com/video/x28j5hv?fields=title
-        dataType: "jsonp"
+        dataType: "jsonp",
+        crossDomain: true
       })
         .done(function(data) {
           alert(1);
