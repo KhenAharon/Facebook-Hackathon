@@ -2,16 +2,29 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <!--<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>-->
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-
-
+  <style>
+    .img-inside {
+    	height: 15em;
+      max-width:17em;
+    	position: relative;
+    	margin-right: auto;
+    	margin-left: auto;
+    	display: block;
+    }
+    .profile_image {
+      -webkit-border-radius: 15em;
+      -moz-border-radius: 15em;
+      border-radius: 15em;
+    }
+  </style>
 </head>
 <body>
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="#">Navbar</a>
+    <a class="navbar-brand" href="#">BLE Recognition</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -24,9 +37,8 @@
       </div>
     </div>
   </nav>
-  <img id="my_image" src="resources/guy.jpg"/>
 
-  <div id="test-div"></div>
+  <div id="profiles"></div>
 
   <script>
     // $(document).ready(function(){
@@ -35,28 +47,37 @@
     // });
     ajaxget()
     function ajaxget() {
-      //alert(1);
       $.ajax({
         url: "http://python-service.us-east-2.elasticbeanstalk.com/",
-        //https://api.dailymotion.com/video/x28j5hv?fields=title
         dataType: "json"
       })
         .done(function(data) {
-          alert(1);
-          data = "oded";
+          //alert(JSON.stringify(data));
+          var tmpProfiles="";
+          for (i = 0; i < data.length; i++) {
+            $('#profiles').append('<div id="profile'+i+'" class="row">');
+
+            $('#profile'+i).append('<div id="text'+i+'" class="col-sm-6"></div>');
+
+            tmpProfiles = "id: " + data[i].id + "\n" +
+                          "name: " + data[i].name + "\n"+
+                          "time: " + data[i].time + "\n";
+            $('#text' + i).append(tmpProfiles);
+            var img = $('<img id="photo'+i+'" src="'+data[i].img_url+'" class="img-responsive img-inside profile_image col-sm-6 "></div></div>'); //Equivalent: $(document.createElement('img'))
+            img.appendTo('#profile'+i);
+
+          }
+
+
           switch(data) {
               case "oded":
                   $("#my_image").attr("src","resources/oded.jpg");
-                  alert("oded");
                   break;
               case "liron":
-                  alert("liron");
                   break;
               case "guy":
-                  alert("guy");
                   break;
               default:
-                  alert("khen");
                   break;
           }
           var myData = "my data from server";
