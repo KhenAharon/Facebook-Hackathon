@@ -20,6 +20,14 @@
       -moz-border-radius: 15em;
       border-radius: 15em;
     }
+    .tg  {border-collapse:collapse;border-spacing:0;border-color:#aabcfe;}
+    .tg td{font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:#aabcfe;color:#669;background-color:#e8edff;}
+    .tg th{font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:#aabcfe;color:#039;background-color:#b9c9fe;}
+    .tg .tg-phtq{background-color:#D2E4FC;border-color:inherit;text-align:left;vertical-align:top}
+    .tg .tg-c3ow{border-color:inherit;text-align:center;vertical-align:top}
+    .tg .tg-ydyv{background-color:#D2E4FC;border-color:inherit;text-align:right;vertical-align:top}
+    .tg .tg-0pky{border-color:inherit;text-align:left;vertical-align:top}
+    .tg .tg-dvpl{border-color:inherit;text-align:right;vertical-align:top}
   </style>
 </head>
 <body>
@@ -55,16 +63,16 @@
           //alert(JSON.stringify(data));
           var tmpProfiles="";
           for (i = 0; i < data.length; i++) {
-            $('#profiles').append('<div id="profile'+i+'" class="row">');
+            $('#profiles').append('<div id="profile'+i+'" class="row" style="width: 700px">');
 
-            $('#profile'+i).append('<div id="text'+i+'" class="col-sm-6"></div>');
+            $('#profile'+i).append('<div id="text'+i+'" style="width: 100%"></div>');
 
-            tmpProfiles = "id: " + data[i].id + "\n" +
-                          "name: " + data[i].name + "\n"+
-                          "time: " + data[i].time + "\n";
+            tmpProfiles = "<table style='width: 100%''><tr><td><img id='photo"+i+"' src='"+data[i].img_url+"' class='img-responsive img-inside profile_image col-sm-6'></div></div></td><td><table style='float:right; width: 300px;' class='tg'><tr>" + "<td class='tg-phtq'>id: " + data[i].id + "</td></tr>" +
+                          "<tr><td class='tg-0pky'>name: " + data[i].name + "</td></tr>"+
+                          "<tr><td class='tg-phtq'>time: " + data[i].time + "</td></tr></table></td></tr></table>";
             $('#text' + i).append(tmpProfiles);
-            var img = $('<img id="photo'+i+'" src="'+data[i].img_url+'" class="img-responsive img-inside profile_image col-sm-6 "></div></div>'); //Equivalent: $(document.createElement('img'))
-            img.appendTo('#profile'+i);
+
+
 
           }
 
@@ -88,7 +96,7 @@
           alert("error");
         })
         .always(function() {
-          alert( "complete" );
+        //  alert( "complete" );
         });
 
     }
