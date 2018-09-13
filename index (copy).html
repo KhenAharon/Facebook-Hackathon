@@ -28,13 +28,6 @@
     .tg .tg-ydyv{background-color:#D2E4FC;border-color:inherit;text-align:right;vertical-align:top}
     .tg .tg-0pky{border-color:inherit;text-align:left;vertical-align:top}
     .tg .tg-dvpl{border-color:inherit;text-align:right;vertical-align:top}
-    .no-space {
-      margin:0px;
-      padding: 0px;
-    }
-    .thumbnail{
-      margin-left:40px;
-    }
   </style>
 </head>
 <body>
@@ -52,7 +45,8 @@
       </div>
     </div>
   </nav>
-  <div id="profiles" style="margin-left:20px; margin-top:20px;"></div>
+
+  <div id="profiles"></div>
 
   <script>
     // $(document).ready(function(){
@@ -67,23 +61,20 @@
       })
         .done(function(data) {
           //alert(JSON.stringify(data));
-          var tmpHTML='<div class="row">';
+          var tmpProfiles="";
           for (i = 0; i < data.length; i++) {
-            //data[i].name, time, id
-                  tmpHTML = tmpHTML +
-                          '<div class="col-lg-2 col-md-2 col-sm-4 col-xs-6" id="profile' + i + '">' +
-                          '<div class="thumbnail">' +
-                          '<img src="' + data[i].img_url + '" class="img-fluid">' +
-                          '<div class="caption">' +
-                          '<h3>'+ data[i].name + '</h3>' +
-                          '<p class="no-space"> time: ' + data[i].time + '</p>' +
-                          '<p class="no-space"> id: ' + data[i].id + '</p>' +
-                          '<p class="no-space"> <a href="#" class="btn-sm btn-primary" role="button">View Profile</a></p>' +
-                          '</div></div></div>';
-          }
-          tmpHTML = tmpHTML + "</div>";
-          $('#profiles').append(tmpHTML);
+            $('#profiles').append('<div id="profile'+i+'" class="row" style="width: 700px">');
 
+            $('#profile'+i).append('<div id="text'+i+'" style="width: 100%"></div>');
+
+            tmpProfiles = "<table style='width: 100%''><tr><td><img id='photo"+i+"' src='"+data[i].img_url+"' class='img-responsive img-inside profile_image col-sm-6'></div></div></td><td><table style='float:right; width: 300px;' class='tg'><tr>" + "<td class='tg-phtq'>id: " + data[i].id + "</td></tr>" +
+                          "<tr><td class='tg-0pky'>name: " + data[i].name + "</td></tr>"+
+                          "<tr><td class='tg-phtq'>time: " + data[i].time + "</td></tr></table></td></tr></table>";
+            $('#text' + i).append(tmpProfiles);
+
+
+
+          }
 
 
           switch(data) {
@@ -102,7 +93,7 @@
           $('#test-div').html(myData);
         })
         .fail(function(err) {
-          alert("server is down");
+          alert("error");
         })
         .always(function() {
         //  alert( "complete" );
