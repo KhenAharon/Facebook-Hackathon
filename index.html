@@ -62,13 +62,20 @@
     //   alert("ypp")
     //   setTimeout(ajaxget, 3000);
     // });
-    ajaxget()
+    ajaxget();
+    window.setInterval(function(){
+
+      ajaxUpdate();
+    }, 1000);
+
     function ajaxget() {
+
       $.ajax({
-        url: "http://python-service.us-east-2.elasticbeanstalk.com/",
+        url: "http://python-service.us-east-2.elasticbeanstalk.com/userVisits",
         dataType: "json"
       })
         .done(function(data) {
+
           //alert(JSON.stringify(data));
           var tmpHTML='<div class="row">';
           for (i = 0; i < data.length; i++) {
@@ -79,12 +86,15 @@
                           '<img src="' + data[i].img_url + '" class="img-fluid">' +
                           '<div class="caption">' +
                           '<h3>'+ data[i].name + '</h3>' +
-                          '<p class="no-space"> time: ' + data[i].time + '</p>' +
+                          '<p class="no-space" id="time"> time: ' + data[i].time + '</p>' +
                           '<p class="no-space"> id: ' + data[i].id + '</p>' +
+                          '<p class="no-space" id="distance"> distance: ' + data[i].distance + '</p>' +
                           '<p class="no-space"> <a href="#" class="btn-sm btn-primary" role="button">View Profile</a></p>' +
                           '</div></div></div>';
           }
           tmpHTML = tmpHTML + "</div>";
+
+
           $('#profiles').append(tmpHTML);
 
 
@@ -103,6 +113,30 @@
           var myData = "my data from server";
 
           $('#test-div').html(myData);
+        })
+        .fail(function(err) {
+          alert("server is down");
+        })
+        .always(function() {
+        //  alert( "complete" );
+        });
+
+    }
+
+    function ajaxUpdate() {
+
+      $.ajax({
+        url: "http://python-service.us-east-2.elasticbeanstalk.com/userVisits",
+        dataType: "json"
+      })
+        .done(function(data) {
+
+          //alert(JSON.stringify(data));
+          var tmpHTML='<div class="row">';
+          for (i = 0; i < data.length; i++) {
+            $('#time').html(data[i].time);
+            $('#distance').html(data[i].distance);
+          }
         })
         .fail(function(err) {
           alert("server is down");
